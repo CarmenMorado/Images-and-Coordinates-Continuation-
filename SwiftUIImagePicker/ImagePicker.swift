@@ -1,9 +1,9 @@
 //
 //  ImagePicker.swift
-//  SwiftUIImagePicker
+//  SwiftUIImagePicker2
 //
-//  Created by Simon Ng on 10/6/2020.
-//  Copyright © 2020 AppCoda. All rights reserved.
+//  Created by Carmen Morado on 11/19/21.
+//  Copyright © 2021 AppCoda. All rights reserved.
 //
 
 import UIKit
@@ -14,7 +14,6 @@ struct ImagePicker: UIViewControllerRepresentable {
     
     var sourceType: UIImagePickerController.SourceType = .photoLibrary
     
-    @Binding var rectArray: [Rect]
     @Binding var imageName: String
     @Binding var selectedImage: UIImage
     @Environment(\.presentationMode) private var presentationMode
@@ -34,7 +33,6 @@ struct ImagePicker: UIViewControllerRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
-        rectArray.removeAll()
         return Coordinator(self, $imageName)
     }
     
@@ -75,4 +73,3 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
     }
 }
-
