@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct Rect: Equatable {
+struct Rect: Equatable, Hashable {
     var x: CGFloat
     var y: CGFloat
     var width: CGFloat

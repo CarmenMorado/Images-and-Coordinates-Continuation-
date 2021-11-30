@@ -12,7 +12,6 @@ import SwiftUI
 struct Model {
     var currentImage: String
     private(set) var rectDict = [String: [Rect]]()
-    //private(set) var rectArray = [Rect]()
     
     init(currentImage: String, imageName: String) {
         self.currentImage = currentImage
@@ -110,6 +109,7 @@ struct Model {
         
         return jsonString
     }
+
     
 }
 

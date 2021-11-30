@@ -13,20 +13,16 @@ class ViewModel: ObservableObject  {
     
     @Published private var model = Model(currentImage: "", imageName: "")
     
- //   var rectDict: [String: [Rect]] {
- //       return model.rectDict
-//    }
+    var rectDict: [String: [Rect]] {
+        return model.rectDict
+    }
     
-//    var rectArray: [Rect] {
-//        get { return model.rectArray}
-        //set { model.rectArray = newValue}
-//    }
-    
-    func addImage(imageName: String) {
-        model.addImage(imageName: imageName)
+    var currentImage: String {
+        return model.currentImage
     }
     
     func handleGesture(currentImage: String, value: DragGesture.Value) {
         model.handleGesture(currentImage: currentImage, value: value)
     }
+    
 }
