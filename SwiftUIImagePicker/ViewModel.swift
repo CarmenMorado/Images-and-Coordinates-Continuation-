@@ -25,4 +25,8 @@ class ViewModel: ObservableObject  {
         model.handleGesture(currentImage: currentImage, value: value)
     }
     
+    func makeJSON(dict: Dictionary<String, [Rect]>, arr: Array<Rect>) -> String {
+        model.makeJSON(dict: dict, arr: arr)
+    }
+    
 }

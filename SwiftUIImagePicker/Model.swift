@@ -11,6 +11,7 @@ import SwiftUI
 
 struct Model {
     var currentImage: String
+   // @State var imageName : String = ""
     private(set) var rectDict = [String: [Rect]]()
     
     init(currentImage: String, imageName: String) {
@@ -29,6 +30,7 @@ struct Model {
     }
     
     mutating func handleGesture(currentImage: String, value: DragGesture.Value) {
+        if ((value.location.y >= 0 && value.location.y <= 250) && (value.startLocation.y >= 0 && value.startLocation.y <= 250)) {
         
         let pointOfOrigin = (min(value.startLocation.x, value.location.x), min(value.startLocation.y, value.location.y))
 
@@ -78,40 +80,49 @@ struct Model {
             }
         }
         
-    }
-    
-    private func makeJSON(dict: Dictionary<String, [Rect]>, arr: Array<Rect>) -> String {
-        let size = arr.count
-        let last_element = arr[size-1]
-        var jsonString = ""
-        for (key, rects) in dict {
-            jsonString.append("\n        image: \(key),")
-            jsonString.append("\n")
-            jsonString.append("""
-            annotations: [
-                {
-
-    """)
-            
-            for rect in rects {
-                jsonString.append("                coordinates: { \n")
-                jsonString.append("                    x: \((rect.x).truncate(places: 2)), y: \((rect.y).truncate(places: 2)), width: \((rect.width).truncate(places: 2)), height: \((rect.height).truncate(places: 2))\n ")
-                jsonString.append("                }\n")
-                
-                if rect == last_element {
-                    jsonString.append("             }\n")
-                }
-                else {
-                    jsonString.append("             },\n")
-                }
-            }
         }
         
-        return jsonString
     }
+    
 
     
-}
+    func makeJSON(dict: Dictionary<String, [Rect]>, arr: Array<Rect>) -> String {
+      
+        let size = arr.count
+       let last_element = arr[size-1]
+       var jsonString = ""
+       for (key, rects) in dict {
+           jsonString.append("\n        image: \(key),")
+           jsonString.append("\n")
+           jsonString.append("""
+           annotations: [
+               {
+
+   """)
+           
+           for rect in rects {
+               jsonString.append("                coordinates: { \n")
+               jsonString.append("                    x: \((rect.x).truncate(places: 2)), y: \((rect.y).truncate(places: 2)), width: \((rect.width).truncate(places: 2)), height: \((rect.height).truncate(places: 2))\n ")
+               jsonString.append("                }\n")
+               
+               if rect == last_element {
+                   jsonString.append("             }\n")
+               }
+               else {
+                   jsonString.append("             },\n")
+               }
+           }
+       }
+       
+       return jsonString
+        }
+
+        
+    }
+    
+    
+
+ 
 
 
 extension CGFloat {
