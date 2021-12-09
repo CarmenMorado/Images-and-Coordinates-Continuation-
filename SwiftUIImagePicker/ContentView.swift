@@ -59,11 +59,11 @@ struct ContentView: View {
                     
                     ForEach(gesturesDict["\($imageName.wrappedValue)"]!,  id: \.self) { gesture in
                         Path { path in
-                            path.move(to: CGPoint(x: gesture.X, y: gesture.startY + 200))
-                            path.addLine(to: CGPoint(x: gesture.startX, y: gesture.startY + 200))
-                            path.addLine(to: CGPoint(x: gesture.startX, y: gesture.Y + 200))
-                            path.addLine(to: CGPoint(x: gesture.X, y: gesture.Y + 200))
-                            path.addLine(to: CGPoint(x: gesture.X, y: gesture.startY + 200))
+                            path.move(to: CGPoint(x: gesture.X, y: gesture.startY + 185))
+                            path.addLine(to: CGPoint(x: gesture.startX, y: gesture.startY + 185))
+                            path.addLine(to: CGPoint(x: gesture.startX, y: gesture.Y + 185))
+                            path.addLine(to: CGPoint(x: gesture.X, y: gesture.Y + 185))
+                            path.addLine(to: CGPoint(x: gesture.X, y: gesture.startY + 185))
                             path.closeSubpath()
                         }
                         .stroke(lineWidth: 3)
@@ -74,7 +74,30 @@ struct ContentView: View {
             }
             
             Button(action: {
-               // viewModel.handleGesture(currentImage: $imageName.wrappedValue, value: value)
+                var jsonString = """
+                [
+                    {
+                """
+
+                jsonString.append(viewModel.makeJSON(dict: viewModel.rectDict, arr: viewModel.rectDict[$imageName.wrappedValue]!))
+                jsonString.append("""
+                        ]
+                    }
+                ]
+                """)
+               print(jsonString)
+                
+                if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
+                                                                    in: .userDomainMask).first {
+                    let pathWithFilename = documentDirectory.appendingPathComponent("Essaie.json")
+                    do {
+                        try jsonString.write(to: pathWithFilename,
+                                             atomically: true,
+                                             encoding: .utf8)
+                    } catch {
+                        // Handle error
+                    }
+                }
             }) {
                 //HStack {
                 //   Image(systemName: "photo")
@@ -91,8 +114,8 @@ struct ContentView: View {
      
                 
             }}
-            //Spacer()
-            
+            Spacer()
+                .frame(height:10)
             Button(action: {
                 self.isShowPhotoLibrary = true
             }) {

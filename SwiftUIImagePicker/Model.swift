@@ -55,31 +55,6 @@ struct Model {
             rectDict["\(currentImage)"]?.append(contentsOf: rectArray)
         }
         
-        var jsonString = """
-        [
-            {
-        """
-
-        jsonString.append(makeJSON(dict: rectDict, arr:rectArray))
-        jsonString.append("""
-                ]
-            }
-        ]
-        """)
-       print(jsonString)
-        
-        if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
-                                                            in: .userDomainMask).first {
-            let pathWithFilename = documentDirectory.appendingPathComponent("Essaie.json")
-            do {
-                try jsonString.write(to: pathWithFilename,
-                                     atomically: true,
-                                     encoding: .utf8)
-            } catch {
-                // Handle error
-            }
-        }
-        
         }
         
     }
